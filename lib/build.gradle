@@ -4,6 +4,7 @@ plugins {
 
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id "com.vanniktech.maven.publish" version "0.34.0"
 }
 
 repositories {
@@ -38,4 +39,36 @@ java {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates("io.github.domix", "pubpoc", "0.0.1")
+
+    pom {
+        name = 'My Library'
+        description = 'A concise description of my library'
+        inceptionYear = "2020"
+        url = 'https://github.com/domix/pubpoc'
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+            }
+        }
+        developers {
+            developer {
+                id = 'domix'
+                name = 'Domingo Suarez Torres'
+                email = 'domingo.suarez@gmail.com'
+            }
+        }
+        scm {
+            connection = 'scm:git:https://github.com/domix/pubpoc'
+            developerConnection = 'scm:git:https://github.com/domix/pubpoc'
+            url = 'https://github.com/domix/pubpoc'
+        }
+    }
 }
